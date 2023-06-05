@@ -1,6 +1,6 @@
 const fs = require('fs')
 const express = require('express');
-const { join } = require('path');
+const morgan = require('morgan');
 const server= express();
 server.use(express.json())
 const data = JSON.parse(fs.readFileSync('data.json','utf-8'))
@@ -11,8 +11,9 @@ const data = JSON.parse(fs.readFileSync('data.json','utf-8'))
 //     next()
 
 // })
+server.use(morgan('dev'))   //can use 'default instead of that
 
-server.use(express.static('public'))   //now this will not redirect to get method because we have declared the static hosting with name index.html (and is the very first 
+// server.use(express.static('public'))   //now this will not redirect to get method because we have declared the static hosting with name index.html (and is the very first 
 // ....file which an express find , if we change the file name then it will goes to default method that is get method )  
 //in short direcly access the file by name
 
@@ -34,7 +35,8 @@ const auth = (req,res,next)=>{
 
 // Api's 
 
-server.get('/', (req,res)=>{
+server.get('/product/:id', (req,res)=>{
+console.log(req.params);
     res.json({type:"get"})
 })
 
