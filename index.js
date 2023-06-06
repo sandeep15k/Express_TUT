@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const server= express();
 server.use(express.json())
-const data = JSON.parse(fs.readFileSync('data.json','utf-8'))
+const products = JSON.parse(fs.readFileSync('data.json','utf-8'))
 
 // Middleware
 // server.use((req,res,next)=>{
@@ -13,7 +13,7 @@ const data = JSON.parse(fs.readFileSync('data.json','utf-8'))
 // })
 server.use(morgan('dev'))   //can use 'default instead of that
 
-// server.use(express.static('public'))   //now this will not redirect to get method because we have declared the static hosting with name index.html (and is the very first 
+server.use(express.static('public'))   //now this will not redirect to get method because we have declared the static hosting with name index.html (and is the very first 
 // ....file which an express find , if we change the file name then it will goes to default method that is get method )  
 //in short direcly access the file by name
 
@@ -33,20 +33,43 @@ const auth = (req,res,next)=>{
  
 
 
-// Api's 
+// Api's  C R U D
 
-server.get('/product/:id', (req,res)=>{
-console.log(req.params);
-    res.json({type:"get"})
+// CREATE PRODUCT
+server.post('/products',(req,res)=>{
+    console.log(req.body);
+    products.products.push(req.body)
+     res.status(201).json(req.body)
+ })
+
+
+// READ - GET /products
+server.get('/products', (req,res)=>{
+    res.json(products)
 })
 
-server.put('/',(req,res)=>{
-    res.json({type:"update"})
+server.get('/products/:id', (req,res)=>{
+    console.log(req.params);
+    const id = +req.params.id  //here the Id is in string in order to make number use +
+    const product = products.products.find(p=>p.id===id)
+    // console.log(products);
+    console.log(product);
+    res.json(product)
 })
 
-server.post('/',auth,(req,res)=>{
-    res.json({type:"post"})
+ 
+
+
+server.put('/products/:id',(req,res)=>{
+    const id = +req.params.id;
+    const productIndex = products.products.findIndex(p=>p.id===id)  //findIndex uses to fetch index no
+    console.log(productIndex);
+    products.products.splice(productIndex,1,{...req.body,id:id})
+
+    res.status(201).json({product:"updated successfully"})
 })
+
+ 
 
 server.delete('/',(req,res)=>{
     res.json({type:"delete"})
