@@ -62,9 +62,10 @@ server.get('/products/:id', (req,res)=>{
 
 server.put('/products/:id',(req,res)=>{
     const id = +req.params.id;
+    
     const productIndex = products.products.findIndex(p=>p.id===id)  //findIndex uses to fetch index no
     console.log(productIndex);
-    products.products.splice(productIndex,1,{...req.body,id:id})   //understand .,......?
+    let test = products.products.splice(productIndex,1,{...req.body,id:id})//it means find the data having index productIndex then delete (1) and add the req.body with id:id
 
     res.status(201).json({product:"updated successfully"})
 })
