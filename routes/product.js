@@ -5,21 +5,21 @@ const productController = require("../controller/product")
 // Api's  C R U D
 
 // CREATE PRODUCT
-  router.post('/products',productController.createProduct)
+ router.post('/products',productController.createProduct)
 
 // READ - GET /products
- .get('/products',productController.getAllProduct)
+ .get('/',productController.getAllProduct)
 
- .get('/products/:id',productController.getProduct)
+ .get('/:id',productController.getProduct)
 
 // UPDATE - products by id
- .put('/products/:id',productController.updateProduct)
+ .put('/:id',productController.updateProduct)
 
-// PATCH- products by id
- .patch('/products/:id',productController.replaceProduct)
+// PATCH- products by idrouter
+ .patch('/:id',productController.replaceProduct)
 
-//DELETE
- .delete('/products/:id',productController.deleteProduct)
+//DELETErouter
+ .delete('/:id',productController.deleteProduct)
 
  
  
@@ -31,4 +31,4 @@ const productController = require("../controller/product")
 })
 
 
- module.exports = router;
+ module.exports = router

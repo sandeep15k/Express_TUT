@@ -4,7 +4,10 @@ const morgan = require('morgan');
 const server= express();
 server.use(express.json())
 const productRouter = require('./routes/product')
-server.use('/api',productRouter)
+
+// const {router} = require('./routes/product')
+
+server.use('/products',productRouter)
 // const {createProduct,getAllProduct,getProduct,updateProduct,replaceProduct,deleteProduct} = require("./controller/product")
  
   

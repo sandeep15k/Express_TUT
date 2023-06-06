@@ -30,7 +30,6 @@ exports.updateProduct = (req,res)=>{
     res.status(201).json({product:"updated successfully"})
 }
 
-
 exports.replaceProduct= (req,res)=>{     //patch is use to override the data instead of replacing by new one 
     const id = +req.params.id;
     const productIndex = products.products.findIndex(p=>p.id === id)
