@@ -57,9 +57,7 @@ server.get('/products/:id', (req,res)=>{
     res.json(product)
 })
 
- 
-
-
+// UPDATE - products by id
 server.put('/products/:id',(req,res)=>{
     const id = +req.params.id;
     
@@ -70,15 +68,27 @@ server.put('/products/:id',(req,res)=>{
     res.status(201).json({product:"updated successfully"})
 })
 
+// PATCH- products by id
+server.patch('/products/:id',(req,res)=>{     //patch is use to override the data instead of replacing by new one 
+    const id = +req.params.id;
+    const productIndex = products.products.findIndex(p=>p.id === id)
+    const product = products.products[productIndex]
+    console.log("///////////////////////",product);
+    products.products.splice(productIndex,1,{...product,...req.body})
+    res.status(201).json({product:"patched successfully"})
+})
+
+//DELETE
+server.delete('/products/:id',(req,res)=>{
+    const id = +req.params.id;
+    const productIndex = products.products.findIndex(p=>p.id===id)
+    const product = products.products[productIndex];
+    console.log(product,"===================");
+    products.products.splice(productIndex,1);
+    res.json({products:"deleted successfully"})
+})
+
  
-
-server.delete('/',(req,res)=>{
-    res.json({type:"delete"})
-})
-
-server.patch('/',(req,res)=>{
-    res.json({type:"patch"})
-})
  
 server.get('/demmo',(req,res)=>{
     // res.sendStatus(404);
