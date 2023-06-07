@@ -5,7 +5,7 @@ const userContoller = require("../controller/user")
 // Api's  C R U D
 
 // CREATE PRODUCT
- router.post('/products',userContoller.createUsers)
+ router.post('/',userContoller.createUsers)
 
 // READ - GET /products
  .get('/',userContoller.getAllUsers)
